@@ -225,20 +225,6 @@ const TechnicalDescription = () => {
     <Section id="technical-description">
       <Card>
         <MarkdownContent content={technicalDescriptionMarkdown} />
-        <Box margin="var(--spacing-md) 0">
-          <h3>Download Example Technical Description</h3>
-          <Grid cols={3} gap="var(--spacing-sm)">
-            <Button onClick={() => downloadExample('docx')}>
-              Download as DOCX
-            </Button>
-            <Button onClick={() => downloadExample('pdf')}>
-              Download as PDF
-            </Button>
-            <Button onClick={() => downloadExample('md')}>
-              Download as Markdown
-            </Button>
-          </Grid>
-        </Box>
       </Card>
     </Section>
   );
