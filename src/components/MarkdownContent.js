@@ -4,6 +4,49 @@ import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import Tabs from './Tabs';
+import styled from 'styled-components';
+
+// Styled container for markdown content
+const MarkdownContainer = styled.div`
+  width: 100%;
+  overflow-x: hidden;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  pre {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 1.8rem;
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+    }
+    
+    h3 {
+      font-size: 1.3rem;
+    }
+    
+    code {
+      word-break: break-word;
+    }
+  }
+`;
 
 // Custom components for the markdown renderer
 const components = {
@@ -25,6 +68,7 @@ const components = {
             style={tomorrow} 
             language="bash" 
             PreTag="div"
+            customStyle={{ maxWidth: '100%', overflow: 'auto' }}
             {...props}
           >
             {osCodeBlocks.mac || '# No Mac-specific instructions available'}
@@ -34,6 +78,7 @@ const components = {
             style={tomorrow} 
             language="powershell" 
             PreTag="div"
+            customStyle={{ maxWidth: '100%', overflow: 'auto' }}
             {...props}
           >
             {osCodeBlocks.windows || '# No Windows-specific instructions available'}
@@ -47,6 +92,8 @@ const components = {
         style={tomorrow}
         language={match[1]}
         PreTag="div"
+        customStyle={{ maxWidth: '100%', overflow: 'auto' }}
+        wrapLongLines={true}
         {...props}
       >
         {String(children).replace(/\n$/, '')}
@@ -57,7 +104,18 @@ const components = {
       </code>
     );
   },
-  // Add custom rendering for other markdown elements if needed
+  // Ensure tables are responsive
+  table({ node, ...props }) {
+    return (
+      <div style={{ width: '100%', overflowX: 'auto' }}>
+        <table {...props} />
+      </div>
+    );
+  },
+  // Ensure images are responsive
+  img({ node, ...props }) {
+    return <img style={{ maxWidth: '100%', height: 'auto' }} {...props} />;
+  },
 };
 
 const MarkdownContent = ({ content }) => {
@@ -98,6 +156,8 @@ WINDOWS_CONTENT: ${windowsCode}
               style={tomorrow} 
               language="bash" 
               PreTag="div"
+              customStyle={{ maxWidth: '100%', overflow: 'auto' }}
+              wrapLongLines={true}
               {...props}
             >
               {macCode}
@@ -107,6 +167,8 @@ WINDOWS_CONTENT: ${windowsCode}
               style={tomorrow} 
               language="powershell" 
               PreTag="div"
+              customStyle={{ maxWidth: '100%', overflow: 'auto' }}
+              wrapLongLines={true}
               {...props}
             >
               {windowsCode}
@@ -121,12 +183,14 @@ WINDOWS_CONTENT: ${windowsCode}
   };
 
   return (
-    <ReactMarkdown
-      remarkPlugins={[remarkGfm]}
-      components={customComponents}
-    >
-      {processedContent}
-    </ReactMarkdown>
+    <MarkdownContainer className="markdown-content">
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        components={customComponents}
+      >
+        {processedContent}
+      </ReactMarkdown>
+    </MarkdownContainer>
   );
 };
 

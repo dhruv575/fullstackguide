@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
+// Breakpoints for responsive design
+const breakpoints = {
+  mobile: '768px',
+  tablet: '1024px'
+};
+
 // Main layout components
 export const AppContainer = styled.div`
   display: flex;
@@ -18,6 +24,10 @@ export const Header = styled.header`
   top: 0;
   z-index: 10;
   box-shadow: var(--box-shadow);
+
+  @media (max-width: ${breakpoints.mobile}) {
+    padding: 0 var(--spacing-md);
+  }
 `;
 
 export const Logo = styled.div`
@@ -29,6 +39,10 @@ export const Logo = styled.div`
   
   svg {
     margin-right: var(--spacing-sm);
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    font-size: 1.2rem;
   }
 `;
 
@@ -46,11 +60,22 @@ export const NavBar = styled.nav`
       text-decoration: none;
     }
   }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    a {
+      margin-left: var(--spacing-sm);
+      font-size: 0.9rem;
+    }
+  }
 `;
 
 export const MainContent = styled.main`
   display: flex;
   flex: 1;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    flex-direction: column;
+  }
 `;
 
 export const Sidebar = styled.aside`
@@ -62,6 +87,15 @@ export const Sidebar = styled.aside`
   position: sticky;
   height: calc(100vh - var(--header-height));
   top: var(--header-height);
+
+  @media (max-width: ${breakpoints.mobile}) {
+    width: 100%;
+    position: static;
+    height: auto;
+    max-height: 300px;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
 `;
 
 export const ContentArea = styled.div`
@@ -71,6 +105,10 @@ export const ContentArea = styled.div`
   max-width: 900px;
   margin: 0 auto;
   width: 100%;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    padding: var(--spacing-md);
+  }
 `;
 
 export const Footer = styled.footer`
@@ -79,6 +117,11 @@ export const Footer = styled.footer`
   text-align: center;
   font-size: 0.9rem;
   color: var(--secondary-color);
+
+  @media (max-width: ${breakpoints.mobile}) {
+    padding: var(--spacing-md);
+    font-size: 0.8rem;
+  }
 `;
 
 // Navigation components
@@ -93,6 +136,11 @@ export const NavItem = styled.div`
   &:hover {
     color: var(--primary-color);
   }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    padding: var(--spacing-xs) 0;
+    font-size: 0.9rem;
+  }
 `;
 
 export const NavSection = styled.div`
@@ -105,11 +153,19 @@ export const NavSection = styled.div`
     color: var(--secondary-color);
     margin-bottom: var(--spacing-sm);
   }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    margin-bottom: var(--spacing-md);
+  }
 `;
 
 // Content components
 export const Section = styled.section`
   margin-bottom: var(--spacing-xl);
+
+  @media (max-width: ${breakpoints.mobile}) {
+    margin-bottom: var(--spacing-lg);
+  }
 `;
 
 export const Card = styled.div`
@@ -119,6 +175,11 @@ export const Card = styled.div`
   margin-bottom: var(--spacing-lg);
   background-color: white;
   box-shadow: var(--box-shadow);
+
+  @media (max-width: ${breakpoints.mobile}) {
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+  }
 `;
 
 export const CodeBlock = styled.div`
@@ -130,6 +191,15 @@ export const CodeBlock = styled.div`
   pre {
     margin: 0;
     padding: var(--spacing-md);
+    overflow-x: auto;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    font-size: 0.8rem;
+    
+    pre {
+      padding: var(--spacing-sm);
+    }
   }
 `;
 
@@ -141,6 +211,11 @@ export const TabList = styled.div`
   display: flex;
   border-bottom: 1px solid var(--border-color);
   margin-bottom: var(--spacing-md);
+  overflow-x: auto;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    -webkit-overflow-scrolling: touch;
+  }
 `;
 
 export const Tab = styled.div`
@@ -149,9 +224,15 @@ export const Tab = styled.div`
   font-weight: ${props => props.active ? '600' : '400'};
   color: ${props => props.active ? 'var(--primary-color)' : 'var(--text-color)'};
   border-bottom: 2px solid ${props => props.active ? 'var(--primary-color)' : 'transparent'};
+  white-space: nowrap;
   
   &:hover {
     color: var(--primary-color);
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.9rem;
   }
 `;
 
@@ -179,12 +260,21 @@ export const Button = styled.button`
     outline: none;
     box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.3);
   }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    font-size: 0.9rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
 `;
 
 export const Divider = styled.hr`
   border: none;
   border-top: 1px solid var(--border-color);
   margin: var(--spacing-lg) 0;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    margin: var(--spacing-md) 0;
+  }
 `;
 
 export const Badge = styled.span`
@@ -201,6 +291,11 @@ export const Badge = styled.span`
   font-weight: 600;
   display: inline-flex;
   align-items: center;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    font-size: 0.7rem;
+    padding: 1px 6px;
+  }
 `;
 
 export const Tooltip = styled.div`
@@ -220,12 +315,23 @@ export const Tooltip = styled.div`
     white-space: nowrap;
     z-index: 100;
   }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    &:hover:after {
+      font-size: 0.7rem;
+      padding: 2px 4px;
+    }
+  }
 `;
 
 export const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(${props => props.cols || 1}, 1fr);
   gap: ${props => props.gap || 'var(--spacing-md)'};
+
+  @media (max-width: ${breakpoints.mobile}) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const Box = styled.div`
@@ -234,4 +340,8 @@ export const Box = styled.div`
   background-color: ${props => props.bgColor || 'transparent'};
   border-radius: ${props => props.borderRadius || 'var(--border-radius)'};
   border: ${props => props.border || 'none'};
+
+  @media (max-width: ${breakpoints.mobile}) {
+    padding: ${props => props.mobilepadding || 'var(--spacing-sm)'};
+  }
 `; 
